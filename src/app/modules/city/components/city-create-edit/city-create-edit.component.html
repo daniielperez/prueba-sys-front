@@ -1,0 +1,38 @@
+@if(isEdit) {
+<h2 mat-dialog-title>Editar Ciudad</h2>
+} @else {
+<h2 mat-dialog-title>Crear Ciudad</h2>
+}
+<mat-dialog-content>
+  <p>Campos requeridos <span style="color: #BA1A1A">*</span></p>
+  <form class="form" [formGroup]="form">
+    <mat-form-field floatLabel="always" appearance="outline">
+      <mat-label>Código</mat-label>
+      <input matInput formControlName="code" />
+    </mat-form-field>
+    <mat-form-field floatLabel="always" appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+    <mat-form-field floatLabel="always" appearance="outline">
+      <mat-label>Departamento</mat-label>
+      <mat-select formControlName="department">
+        @if (departments) {
+        @for (department of departments; track department.name) {
+        <mat-option [value]="department.id">{{department.code}} - {{department.name}}</mat-option>
+        }
+        }
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-flat-button [mat-dialog-close]="{data: form.value, isEdit}" [disabled]="form.invalid">
+    @if(isEdit) {
+    Editar
+    } @else {
+    Crear
+    }
+  </button>
+</mat-dialog-actions>

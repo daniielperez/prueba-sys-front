@@ -1,0 +1,13 @@
+<mat-sidenav-container class="sidebar-container">
+  <mat-sidenav #sidenav mode="side" class="sidenav" opened>
+    <h2 class="title">Adminstrador de materiales</h2>
+    <mat-nav-list>
+      <mat-list-item routerLink="/materials">Material</mat-list-item>
+      <mat-list-item routerLink="/city">Ciudad</mat-list-item>
+      <mat-list-item routerLink="/department">Departamento</mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="main-content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

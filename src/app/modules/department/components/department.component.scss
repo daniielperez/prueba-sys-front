@@ -1,0 +1,30 @@
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.bg-active {
+  background-color: #00B1BB;
+  border-radius: 20px;
+  width: fit-content;
+  padding: 5px;
+}
+
+.bg-available {
+  background-color: #00E472;
+  border-radius: 20px;
+  width: fit-content;
+  padding: 5px;
+}
+
+.bg-assigned {
+  background-color: #f3c11b;
+  border-radius: 20px;
+  width: fit-content;
+  padding: 5px;
+}

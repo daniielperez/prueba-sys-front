@@ -1,0 +1,75 @@
+@if(isEdit) {
+  <h2 mat-dialog-title>Editar Material</h2>
+} @else {
+  <h2 mat-dialog-title>Crear Material</h2>
+}
+<mat-dialog-content>
+  <p>Campos requeridos <span style="color: #BA1A1A">*</span></p>
+  <form class="form" [formGroup]="form">
+    <mat-form-field floatLabel="always" appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+    <mat-form-field floatLabel="always" appearance="outline">
+      <mat-label>Descripción</mat-label>
+      <input matInput formControlName="description" />
+    </mat-form-field>
+    <mat-form-field floatLabel="always" appearance="outline">
+      <mat-label>Tipo</mat-label>
+      <input matInput formControlName="type" />
+    </mat-form-field>
+    <mat-form-field floatLabel="always" appearance="outline">
+      <mat-label>Precio</mat-label>
+      <input matInput type="number" formControlName="price"/>
+      <span matTextPrefix>$&nbsp;</span>
+    </mat-form-field>
+    <mat-form-field floatLabel="always" appearance="outline">
+      <mat-label>Fecha compra</mat-label>
+      <input matInput [matDatepicker]="pickerPurchase" [min]="minDate" [max]="maxDate"
+             formControlName="datePurchase" placeholder="DD/MM/AAAA">
+      <mat-datepicker-toggle matIconSuffix [for]="pickerPurchase"></mat-datepicker-toggle>
+      <mat-datepicker #pickerPurchase></mat-datepicker>
+      @if (form.get('datePurchase')?.hasError('invalidDate')) {
+        <mat-error>La fecha de compra no puede ser mayor a la fecha de venta.</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field floatLabel="always" appearance="outline">
+      <mat-label>Fecha venta</mat-label>
+      <input matInput [matDatepicker]="pickerSale" [min]="minDate" [max]="maxDate"
+             formControlName="dateSale" placeholder="DD/MM/AAAA">
+      <mat-datepicker-toggle matIconSuffix [for]="pickerSale"></mat-datepicker-toggle>
+      <mat-datepicker #pickerSale></mat-datepicker>
+      @if (form.get('dateSale')?.hasError('invalidDate')) {
+        <mat-error>La fecha de venta no puede ser menor a la fecha de compra.</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field floatLabel="always" appearance="outline">
+      <mat-label>Ciudad</mat-label>
+      <mat-select formControlName="city">
+        @if (cities) {
+          @for (city of cities; track city.name) {
+            <mat-option [value]="city.id">{{city.code}} - {{city.name}}</mat-option>
+          }
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field floatLabel="always" appearance="outline">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="status">
+        @for (status of states; track status.name) {
+          <mat-option [value]="status.id">{{status.name}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-flat-button [mat-dialog-close]="{data: form.value, isEdit}" [disabled]="form.invalid">
+    @if(isEdit) {
+      Editar
+    } @else {
+      Crear
+    }
+  </button>
+</mat-dialog-actions>
